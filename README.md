@@ -3,6 +3,7 @@
 ### Como correr este proyecto en tu maquina
 
 Primero deberas clonar este proyecto, por lo cual asegurate de tener configurado Git en tu editor de codigo o terminal, esto lo puedes realizar de la siguiente forma:
+
 1-
 '''
 git config --global user.name <nombre>
