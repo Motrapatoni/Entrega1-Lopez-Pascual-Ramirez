@@ -7,7 +7,8 @@ Primero deberas clonar este proyecto, por lo cual asegurate de tener configurado
 1-
 ```
 git config --global user.name <nombre>
-
+```
+```
 git config --global user.email <email>
 ```
 ***Nota:*** nombre y email deben de ser con los que creaste tu cuenta de Github
