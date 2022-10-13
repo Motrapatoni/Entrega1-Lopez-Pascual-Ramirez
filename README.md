@@ -6,7 +6,7 @@ Para correr este proyecto deberás seguir algunos pasos previos tales como clona
 
 ### Para clonar haremos lo siguiente:
 
-1. Abrir la terminal en tu ordenador.
+1. Abrir la terminal en tu ordenador.  
 Win: Inicio →  Ejecutar → escribir: cmd → Enter
 OS: command + espacio → escribir: terminal → Enter
 
