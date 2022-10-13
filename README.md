@@ -10,7 +10,7 @@ Para correr este proyecto deberás seguir algunos pasos previos tales como clona
 Win: Inicio →  Ejecutar → escribir: cmd → Enter  
 OS: command + espacio → escribir: terminal → Enter
 
-2. Nos ubicamos en la carpeta donde queremos que quede el proyecto.
+2. Nos ubicamos en la carpeta donde queremos que quede el proyecto.  
 Ej: En el escritorio → carpeta dev
 ```
 cd Desktop
