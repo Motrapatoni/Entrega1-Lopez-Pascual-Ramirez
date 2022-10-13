@@ -48,7 +48,7 @@ pip install -r requirements.txt
 ```
 *Esto va a demorar unos momentos.*
 
-## Luego para poder correr el proyecto en tu local host debes de correr por consola:
+## Luego para poder correr el proyecto en el LocalHost debes de ejecutar en la terminal:
 ```
 python manage.py runserver
 ```
