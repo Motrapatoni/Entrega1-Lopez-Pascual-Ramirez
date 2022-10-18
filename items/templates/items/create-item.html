@@ -1,0 +1,33 @@
+{% extends 'bases/base.html' %}
+
+{% block title %}
+    <title>Entrega 1 || Creaar Items</title>
+{% endblock title %}
+
+{% block active-page %}
+<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+    <li class="nav-item"><a class="nav-link" aria-current="page" href={% url 'index' %}>Home</a></li>
+    <li class="nav-item"><a class="nav-link" href={% url 'about' %}>Nosotros</a></li>
+    <li class="nav-item"><a class="nav-link" href={% url 'items' %}>Articulos</a></li>
+    <li class="nav-item"><a class="nav-link active" href={% url 'create-items' %}>Crear Articulo</a></li>
+    <li class="nav-item"><a class="nav-link" href={% url 'contact' %}>Contacto</a></li>
+</ul>
+{% endblock active-page %}
+
+{% block create_news %}
+<section class="bg-light py-6">
+    <div class="container">
+        <div class="row gx-5 justify-content-center">
+            <div class="col-lg-6">
+                <form action={% url 'create-items' %} method="POST" class='mb-3 row'>
+                    {% csrf_token %}
+                    {{ form_create }}
+                    </br>
+                    <button class="btn btn-secondary" type="submit">Crear</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock create_news %}
+
