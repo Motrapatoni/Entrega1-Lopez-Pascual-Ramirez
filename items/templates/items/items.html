@@ -1,5 +1,18 @@
 {% extends 'bases/base.html' %}
 
+{% block title %}
+    <title>Entrega 1 || Items</title>
+{% endblock title %}
+
+{% block active-page %}
+<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+    <li class="nav-item"><a class="nav-link" aria-current="page" href={% url 'index' %}>Home</a></li>
+    <li class="nav-item"><a class="nav-link" href={% url 'about' %}>Nosotros</a></li>
+    <li class="nav-item"><a class="nav-link active" href={% url 'items' %}>Articulos</a></li>
+    <li class="nav-item"><a class="nav-link" href={% url 'contact' %}>Contacto</a></li>
+</ul>
+{% endblock active-page %}
+
 {% block items-block %}
 <!-- Header-->
 <header class="bg-dark py-5">

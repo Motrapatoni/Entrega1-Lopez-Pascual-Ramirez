@@ -4,6 +4,15 @@
     <title>Entrega 1 || HOME</title>
 {% endblock title %}
 
+{% block active-page %}
+<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+    <li class="nav-item"><a class="nav-link active" aria-current="page" href={% url 'index' %}>Home</a></li>
+    <li class="nav-item"><a class="nav-link" href={% url 'about' %}>Nosotros</a></li>
+    <li class="nav-item"><a class="nav-link" href={% url 'items' %}>Articulos</a></li>
+    <li class="nav-item"><a class="nav-link" href={% url 'contact' %}>Contacto</a></li>
+</ul>
+{% endblock active-page %}
+
 {% block header %}
 <header class="bg-dark py-5">
     <div class="container px-5">
