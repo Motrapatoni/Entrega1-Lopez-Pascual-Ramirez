@@ -40,23 +40,23 @@
     </div>
 </section>
 <section class="py-5">
-    {% if items %}
-        {% for item in items %}
-            <div class="container px-4 px-lg-5 mt-5">
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            {% if items %}
+                {% for item in items %}
                     <div class="col mb-5">
-                            <div class="card" style="width: 18rem;">
-                                <div class="card-body">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
                                 <h5 class="card-title">{{ item.tittle }}</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">{{ item.owner_first_name }} {{ item.owner_last_name }}</h6>
                                 <p class="card-text">{{ item.body }}</p>
                                 <p>Colaboradores: {{ item.collaborators }} </p><p class="text-muted">Fecha: {{ item.creation_date}}</p>
-                                </div>
                             </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        {% endfor %}
-    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
 </section>        
 {% endblock items-block %}
