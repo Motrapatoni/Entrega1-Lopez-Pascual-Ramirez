@@ -4,4 +4,6 @@ from items import views
 
 urlpatterns = [
     path('', views.items, name='items'),
+    path('create-items/', views.create_item, name='create-items'),
+    path('contact/', views.contact, name='contact'),
 ]
