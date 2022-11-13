@@ -1,0 +1,36 @@
+{% extends 'bases/base-login.html' %}
+
+{% block block-tittle %}
+<title>Entrega Final || Register</title>
+{% endblock block-tittle %}
+
+{% block active-page %}
+<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+    <li class="nav-item"><a class="nav-link" href={% url 'index' %}>Home</a></li>
+    <li class="nav-item"><a class="nav-link" href={% url 'about' %}>Nosotros</a></li>
+    <li class="nav-item"><a class="nav-link" href={% url 'items' %}>Articulos</a></li>
+    {% if request.user.is_authenticated %}
+    <li class="nav-item"><a class="nav-link" href={% url 'create-items' %}>Crear Articulo</a></li>
+    {% endif %}
+    <li class="nav-item"><a class="nav-link" href={% url 'contact' %}>Contacto</a></li>
+    {% if request.user.is_authenticated %}
+        <li class="nav-item"><a class="nav-link active text-decoration-underline" href={% url 'profile' %}>Hola {{request.user.username}}!</a></li>
+        <li class="nav-item"><a class="nav-link" href={% url 'logout' %}>Cerrar Sesion</a></li>
+    {% else %}
+        <li class="nav-item"><a class="nav-link active" href={% url 'login' %}>Ingresar</a></li>
+        <li class="nav-item"><a class="nav-link" href={% url 'register' %}>Registrarse</a></li> 
+    {% endif %}
+</ul>
+{% endblock active-page %}
+
+{% block block-titulo %}
+<h1 class="h1 text-gray-900 mb-4">Cerraste sesion correctamente</h1>
+<h1 class="h1 text-gray-900 mb-4">Hasta Pronto</h1>
+{% endblock block-titulo %}
+
+{% block block-contenido %}
+<div class="text-center">
+    <a class="small btn btn-outline-secondary" href={% url 'login' %}>Ingresar!</a> | 
+    <a class="small btn btn-outline-secondary" href={% url 'register' %}>Registrarse!</a>
+</div>
+{% endblock block-contenido %}

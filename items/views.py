@@ -1,26 +1,39 @@
-from datetime import datetime
-from django.shortcuts import redirect, render
+import datetime
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
-from django.template import Template, Context, loader
+from django.shortcuts import redirect, render
+from django.template import Context, Template, loader
+from django.views.generic import ListView
+from django.contrib.auth.decorators import login_required
+
 from items.forms import Contacts, NewsForms, SearchNewsForms
 from items.models import Contact, New
 
-# Create your views here.
-def items(request):
-    tittle =request.GET.get('tittle')
-    if tittle:
-        items = New.objects.filter(tittle__icontains=tittle)
-    else:
-        items = New.objects.all()
-    
-    form = SearchNewsForms()
-    return render(request, 'items/items.html', {'items': items, 'form': form})
 
+# Create your views here.
+class Items(ListView):
+    item = New
+    template_name = 'items/items.html'
+        
+    def get_queryset(self):
+        tittle = self.request.GET.get('tittle', '')
+        if tittle:
+            object_list = self.item.objects.filter(tittle__icontains=tittle)
+        else:
+            object_list = self.item.objects.all()
+        return object_list
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = SearchNewsForms()
+        return context
+
+
+@login_required
 def create_item(request):
-    
     if request.method == 'POST':
         form_create = NewsForms(request.POST)
-        
+    
         if form_create.is_valid():
             data = form_create.cleaned_data
             
@@ -42,7 +55,6 @@ def create_item(request):
 
 def contact(request):
     if request.method == 'POST':
-        
         form_create = Contacts(request.POST)
         
         if form_create.is_valid():

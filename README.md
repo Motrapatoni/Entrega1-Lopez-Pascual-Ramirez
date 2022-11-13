@@ -13,10 +13,7 @@ OS: command + espacio → escribir: terminal → Enter
 2. Nos ubicamos en la carpeta donde queremos que quede el proyecto.  
 Ej: En el escritorio → carpeta dev
 ```
-cd Desktop
-```
-```
-cd dev
+cd Desktop/dev
 ```
 
 3. Ya en la ubicación destino del proyecto, vamos a clonar el repositorio
@@ -36,9 +33,14 @@ Ejecutamos en la terminal lo siguiente:
 ```
 python -m venv venv
 ```
-Luego activamos el entorno virtual con:
+Luego activamos el entorno virtual con:  
+- En mac:
 ```
 . venv/bin/activate
+```
+- En windows:
+```
+. venv/script/activate
 ```
 
 ## Instalación de paquetes
@@ -46,7 +48,7 @@ En la terminal vamos a ejecutar lo siguiente:
 ```
 pip install -r requirements.txt
 ```
-*Esto va a demorar unos momentos.*
+*Esto puede demorar algunos minutos.*
 
 ## Luego para poder correr el proyecto en el LocalHost debes de ejecutar en la terminal:
 ```

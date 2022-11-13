@@ -1,0 +1,50 @@
+{% extends 'bases/base-login.html' %}
+
+{% block block-tittle %}
+<title>Entrega Final || Login</title>
+{% endblock block-tittle %}
+
+{% block block-titulo %}
+<h1 class="h4 text-gray-900 mb-4">Ingresa a tu cuenta!</h1>
+{% endblock block-titulo %}
+
+{% block active-page %}
+<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+    <li class="nav-item"><a class="nav-link" href={% url 'index' %}>Home</a></li>
+    <li class="nav-item"><a class="nav-link" href={% url 'about' %}>Nosotros</a></li>
+    <li class="nav-item"><a class="nav-link" href={% url 'items' %}>Articulos</a></li>
+    {% if request.user.is_authenticated %}
+    <li class="nav-item"><a class="nav-link" href={% url 'create-items' %}>Crear Articulo</a></li>
+    {% endif %}
+    <li class="nav-item"><a class="nav-link" href={% url 'contact' %}>Contacto</a></li>
+    {% if request.user.is_authenticated %}
+        <li class="nav-item"><a class="nav-link active text-decoration-underline" href={% url 'profile' %}>Hola {{request.user.username}}!</a></li>
+        <li class="nav-item"><a class="nav-link" href={% url 'logout' %}>Cerrar Sesion</a></li>
+    {% else %}
+        <li class="nav-item"><a class="nav-link active" href={% url 'login' %}>Ingresar</a></li>
+        <li class="nav-item"><a class="nav-link" href={% url 'register' %}>Registrarse</a></li> 
+    {% endif %}
+</ul>
+{% endblock active-page %}
+
+{% block block-contenido %}
+<form class="user" method="POST" action="{% url 'login' %}">
+    {% csrf_token %}
+    <div class="form-group">
+        <input type="text" class="form-control form-control-user"
+            placeholder="Nombre de usuario" name={{ form.username.name }}>
+        <p></p>
+        <input type="password" class="form-control form-control-user"
+             placeholder="Password" name={{ form.password.name }}>
+    </div>
+    <p></p>
+    <button class="btn btn-primary btn-user btn-block">
+        INGRESAR
+    </button>
+</form>
+<hr>
+<div class="text-center">
+    <a class="small btn btn-outline-secondary" href="forgot-password.html">Olvidaste la contraseña?</a>
+    <a class="small btn btn-outline-secondary" href={% url 'register' %}>No tienes una cuenta aun!? Creala!</a>
+</div>
+{% endblock block-contenido %}

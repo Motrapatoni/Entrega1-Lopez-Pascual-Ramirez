@@ -1,0 +1,88 @@
+{% extends 'bases/base-login.html' %}
+
+{% block block-tittle %}
+<title>Entrega Final || Profile</title>
+{% endblock block-tittle %}
+
+{% block active-page %}
+<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+    <li class="nav-item"><a class="nav-link" href={% url 'index' %}>Home</a></li>
+    <li class="nav-item"><a class="nav-link" href={% url 'about' %}>Nosotros</a></li>
+    <li class="nav-item"><a class="nav-link" href={% url 'items' %}>Articulos</a></li>
+    {% if request.user.is_authenticated %}
+    <li class="nav-item"><a class="nav-link" href={% url 'create-items' %}>Crear Articulo</a></li>
+    {% endif %}
+    <li class="nav-item"><a class="nav-link" href={% url 'about' %}>Nosotros</a></li>
+    <li class="nav-item"><a class="nav-link" href={% url 'contact' %}>Contacto</a></li>
+    {% if request.user.is_authenticated %}
+        <li class="nav-item"><a class="nav-link active text-decoration-underline" href={% url 'profile' %}>Hola {{request.user.username}}!</a></li>
+        <li class="nav-item"><a class="nav-link" href={% url 'logout' %}>Cerrar Sesion</a></li>
+    {% else %}
+        <li class="nav-item"><a class="nav-link active" href={% url 'login' %}>Ingresar</a></li>
+        <li class="nav-item"><a class="nav-link" href={% url 'register' %}>Registrarse</a></li> 
+    {% endif %}
+</ul>
+{% endblock active-page %}
+
+
+{% block block-contenido %}
+<form action={% url 'edit_profile' %} method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col col-lg-6 mb-4 mb-lg-0">
+          <div class="card mb-3 bg-gray-200" style="border-radius: .5rem;">
+            <div class="row g-0 ml-2">
+              <div class="col-md-4 text-center" style="border-top-left-radius: .5rem; border-bottom-left-radius: 1rem;">
+                {% if request.user.extenduser.avatar %}
+                    <img src={{request.user.extenduser.avatar.url}}
+                      class="rounded-circle img-fluid my-3" alt="avatar" style="width: 120px; border-radius: 1rem;">
+                {% else %}
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"
+                      alt="Avatar" class="img-fluid my-5" style="width: 80px; border-radius: .5rem;" />
+                {% endif %}
+                <input type="file" class="btn col-8" accept="image/png, .jpeg, .jpg" name="avatar" required>
+                <h5>
+                  <input type="text" class="form-control form-control-user col-12 mt-3" placeholder="Nombre Usuario" name={{ form.username.name }} required>
+                </h5>
+                <p></p>
+                <div class="align-content-center mb-5 mt-5">
+                  <button class="btn btn-link" label="Guardar" title="Click para guardar los cambios">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="30" height="30">
+                      <path d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V173.3c0-17-6.7-33.3-18.7-45.3L352 50.7C340 38.7 323.7 32 306.7 32H64zm0 96c0-17.7 14.3-32 32-32H288c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V128zM224 416c-35.3 0-64-28.7-64-64s28.7-64 64-64s64 28.7 64 64s-28.7 64-64 64z"/>
+                    </svg>
+                  </button>
+                </div> 
+              </div>
+              <div class="col-md-8">
+                <div class="card-body p-4">
+                  <h5>Información de la cuenta</h5>
+                    <hr class="mt-0 mb-4">
+                    <div class="row pt-1">
+                      <div class="col-10 mb-2">
+                        <h6>Nombre y apellido:</h6>
+                        <input type="text" class="form-control form-control-user mb-2"
+                          placeholder="Nombre" name={{ form.first_name.name }} required>
+                        <input type="text" class="form-control form-control-user"
+                          placeholder="Apellido" name={{ form.last_name.name }} required>
+                        </div>
+                      <div class="col-10 mb-2">
+                        <h6>Email</h6>
+                        <input type="text" class="form-control form-control-user"
+                          placeholder="Emal" name={{ form.email.name }}>
+                      </div>
+                      <div class="col-7 mb-2">
+                        <h6>Registro:</h6>
+                        <p class="text-muted">{{ request.user.date_joined }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</form>
+{% endblock block-contenido %}
