@@ -7,10 +7,19 @@
 {% block active-page %}
 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
     <li class="nav-item"><a class="nav-link active" aria-current="page" href={% url 'index' %}>Home</a></li>
-    <li class="nav-item"><a class="nav-link" href={% url 'about' %}>Nosotros</a></li>
     <li class="nav-item"><a class="nav-link" href={% url 'items' %}>Articulos</a></li>
+    {% if request.user.is_authenticated %}
     <li class="nav-item"><a class="nav-link" href={% url 'create-items' %}>Crear Articulo</a></li>
+    {% endif %}
+    <li class="nav-item"><a class="nav-link" href={% url 'about' %}>Nosotros</a></li>
     <li class="nav-item"><a class="nav-link" href={% url 'contact' %}>Contacto</a></li>
+    {% if request.user.is_authenticated %}
+        <li class="nav-item"><a class="nav-link active text-decoration-underline" href={% url 'profile' %}>Hola {{request.user.username}}!</a></li>
+        <li class="nav-item"><a class="nav-link" href={% url 'logout' %}>Cerrar Sesion</a></li>
+    {% else %}
+        <li class="nav-item"><a class="nav-link active" href={% url 'login' %}>Ingresar</a></li>
+        <li class="nav-item"><a class="nav-link" href={% url 'register' %}>Registrarse</a></li> 
+    {% endif %}
 </ul>
 {% endblock active-page %}
 
@@ -20,7 +29,7 @@
         <div class="row gx-5 justify-content-center">
             <div class="col-lg-6">
                 <div class="text-center my-5">
-                    <h1 class="display-5 fw-bolder text-white mb-2">Presentacion de la Entrega1</h1>
+                    <h1 class="display-5 fw-bolder text-white mb-2">Presentacion de la Entrega Final</h1>
                     <p class="lead text-white-50 mb-6">Equipo conformado por:</p>
                     <p class="lead text-white-50 mb-6"><strong>Nadine Pascual, Natalia Lopez y Moises Ramirez</strong></p>
                 </div>
@@ -29,7 +38,7 @@
     </div>
 </header>
 {% endblock header %}
-{% block objectives-block %}
+{% block content-block %}
 <section class="py-5 border-bottom">
     <div class="container px-5 my-5 px-5">
         <div class="text-center mb-5">
@@ -67,4 +76,4 @@
         </div>
     </div>
 </section>
-{% endblock objectives-block %}
+{% endblock content-block %}

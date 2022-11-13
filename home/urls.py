@@ -8,4 +8,5 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('about/', views.about, name='about'),
     path('items/', include('items.urls'), name='items'),
+    path('accounts/', include('accounts.urls'), name='accounts'),
 ]

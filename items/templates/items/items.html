@@ -6,17 +6,26 @@
 
 {% block active-page %}
 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-    <li class="nav-item"><a class="nav-link" aria-current="page" href={% url 'index' %}>Home</a></li>
-    <li class="nav-item"><a class="nav-link" href={% url 'about' %}>Nosotros</a></li>
-    <li class="nav-item"><a class="nav-link active" href={% url 'items' %}>Articulos</a></li>
+    <li class="nav-item"><a class="nav-link" href={% url 'index' %}>Home</a></li>
+    <li class="nav-item"><a class="nav-link  active" aria-current="page" href={% url 'items' %}>Articulos</a></li>
+    {% if request.user.is_authenticated %}
     <li class="nav-item"><a class="nav-link" href={% url 'create-items' %}>Crear Articulo</a></li>
+    {% endif %}
+    <li class="nav-item"><a class="nav-link" href={% url 'about' %}>Nosotros</a></li>
     <li class="nav-item"><a class="nav-link" href={% url 'contact' %}>Contacto</a></li>
+    {% if request.user.is_authenticated %}
+        <li class="nav-item"><a class="nav-link active text-decoration-underline" href={% url 'profile' %}>Hola {{request.user.username}}!</a></li>
+        <li class="nav-item"><a class="nav-link" href={% url 'logout' %}>Cerrar Sesion</a></li>
+    {% else %}
+        <li class="nav-item"><a class="nav-link active" href={% url 'login' %}>Ingresar</a></li>
+        <li class="nav-item"><a class="nav-link" href={% url 'register' %}>Registrarse</a></li> 
+    {% endif %}
 </ul>
 {% endblock active-page %}
 
-{% block items-block %}
+{% block content-block %}
 <!-- Header-->
-<header class="bg-dark py-5">
+<header class="bg-dark py-3">
     <div class="container px-4 px-lg-5 my-2">
         <div class="text-center text-white">
             <h1 class="display-4 fw-bolder">Articulos</h1>
@@ -25,12 +34,6 @@
     </div>
 </header>
 <!-- Section-->
-<section class="py-5">
-    <div class="container px-6 px-lg-5 my-2">
-        
-    </div>
-</section>
-
 <section class="py-5">
     <div class="container px-6 px-lg-5 my-2">
         <form action={% url 'items' %} method="GET" class="d-flex">
@@ -42,8 +45,8 @@
 <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            {% if items %}
-                {% for item in items %}
+            {% if object_list %}
+                {% for item in object_list %}
                     <div class="col mb-5">
                         <div class="card" style="width: 18rem;">
                             <div class="card-body">
@@ -55,8 +58,16 @@
                         </div>
                     </div>
                 {% endfor %}
+            {%else%}
+                <div class="col mb-5">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">No hay noticias creadas aun</h5>
+                        </div>
+                    </div>
+                </div>
             {% endif %}
         </div>
     </div>
 </section>        
-{% endblock items-block %}
+{% endblock content-block %}
