@@ -1,11 +1,10 @@
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import PasswordChangeView
 from django.shortcuts import redirect, render
 
-# from django.contrib.auth import login as django_login
 from accounts.forms import ChangePasswordForm, CreationForm, EditProfileForm
 from accounts.models import ExtendUser
 
@@ -15,7 +14,7 @@ def my_login(request):
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             user = form.get_user()
-            login(request, user) # django_login(request, user)
+            login(request, user)
             extend_user, is_new = ExtendUser.objects.get_or_create(user=request.user)
             return redirect('index')
     else:

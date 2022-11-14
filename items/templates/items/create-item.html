@@ -1,5 +1,6 @@
 {% extends 'bases/base.html' %}
 
+
 {% block title %}
     <title>Entrega 1 || Crear Items</title>
 {% endblock title %}
@@ -38,13 +39,52 @@
     <p></p>
     <div class="container">
         <div class="row gx-5 justify-content-center">
-            <div class="col-lg-6">
-                <form action={% url 'create-items' %} method="POST" class='mb-3 row'>
-                    {% csrf_token %}
-                    {{ form_create }}
-                    <p></p>
-                    <button class="btn btn-secondary" type="submit">Crear</button>
-                </form>
+            <div class="col-lg-9">
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <!-- Nested Row within Card Body -->
+                        <div class="row">
+                           <div class="col-lg-12">
+                                <div class="p-5">
+                                    <form action={% url 'create-items' %} method="POST" enctype="multipart/form-data" class="user mb-3 row">
+                                        {% csrf_token %}
+                                            {{ form.media }}
+                                            <div class="form-group">
+                                                <div class="mb-1">
+                                                    <label for="tittle" class="form-control form-control-user border-0 mb-1">Titulo:</label>
+                                                    <input type="text" class="form-control form-control-user" label="Titulo" name={{ form.tittle.name }} id="tittle" value="{{ form.title.value }}">
+                                                    
+                                                </div>
+                                                <div class="mb-1">                        
+                                                    <label for="content" class="form-control form-control-user border-0">Cuerpo noticia:</label>
+                                                    {{ form.content.errors }}
+                                                    <div class="flex justify-between form-control form-control-user">
+                                                        <div name="body">
+                                                            {{ form.body }}
+                                                        </div>
+                                                    </div>
+                                                    {{ form.content.help_text }}
+                                                </div>
+                                                <div class="mb-1">
+                                                    <label for="user" class="form-control form-control-user border-0">Creador</label>
+                                                    <select name={{ form.owner_name.name }} id="user" class="form-control form-control-user">
+                                                    <option value="{{ request.user.id }}">{{ request.user.username }}</option> </select>
+                                                </div>
+                                                <div class="mb-1">
+                                                    <label for="imagen" class="form-control form-control-user border-0">Imagen:</label>
+                                                    <input type="file" class="btn col-8" accept="image/png, .jpeg, .jpg" name={{ form.imagen.name }} required>
+                                                </div>
+                                                <p></p>
+                                            </div>
+                                            <button class="btn btn-primary btn-user btn-block" type="submit">Crear</button>
+                                    </form>
+        
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </div>

@@ -1,12 +1,9 @@
-import datetime
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse
 from django.shortcuts import redirect, render
-from django.template import Context, Template, loader
-from django.views.generic import ListView
+from django.views.generic import ListView, CreateView
 from django.contrib.auth.decorators import login_required
 
-from items.forms import Contacts, NewsForms, SearchNewsForms
+from items.forms import Contacts, SearchNewsForms
 from items.models import Contact, New
 
 
@@ -29,29 +26,23 @@ class Items(ListView):
         return context
 
 
-@login_required
-def create_item(request):
-    if request.method == 'POST':
-        form_create = NewsForms(request.POST)
+class CreateItem(LoginRequiredMixin, CreateView):
+    model = New
+    success_url = '/items'
+    template_name = 'items/create-item.html'
+    fields = '__all__'
+    def form_valid(self, form):
+        self.object = form.save()
+        return redirect(self.get_success_url())
     
-        if form_create.is_valid():
-            data = form_create.cleaned_data
-            
-            tittle = data['tittle']
-            body = data['body']
-            creation_date = data['creation_date']
-            if not creation_date:
-                creation_date = datetime.now()
-            owner_first_name = data['owner_first_name']
-            owner_last_name = data['owner_last_name']
-            collaborators = data['collaborators']
-            new = New(tittle=tittle, body=body, creation_date=creation_date, owner_first_name=owner_first_name, 
-                      owner_last_name=owner_last_name, collaborators=collaborators)
-            new.save()
-            return redirect('items')
-    
-    form_create = NewsForms()
-    return render(request, 'items/create-item.html', {'form_create': form_create})
+class ReadItem(ListView):
+    model = New
+    template_name = 'items/read-item.html'
+    fields = '__all__'
+    def get_queryset(self):
+        queryset = New.objects.filter(owner_name= self.request.user.id)
+        return queryset
+
 
 def contact(request):
     if request.method == 'POST':

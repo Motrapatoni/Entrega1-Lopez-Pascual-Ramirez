@@ -34,26 +34,31 @@
     </div>
 </header>
 <!-- Section-->
-<section class="py-5">
-    <div class="container px-6 px-lg-5 my-2">
+<section class="py-3">
+    <div class="container px-6 px-lg-5 my-1">
         <form action={% url 'items' %} method="GET" class="d-flex">
             {{ form }}
             <button class="btn btn-secondary" type="submit">Buscar</button>
         </form>
+        <hr>
     </div>
 </section>
-<section class="py-5">
-    <div class="container px-4 px-lg-5 mt-5">
+<section class="py-3">
+    <div class="container px-4 px-lg-5 mt-1">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
             {% if object_list %}
                 {% for item in object_list %}
                     <div class="col mb-5">
                         <div class="card" style="width: 18rem;">
-                            <div class="card-body">
+                            <div class="card-body mb-0">
                                 <h5 class="card-title">{{ item.tittle }}</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">{{ item.owner_first_name }} {{ item.owner_last_name }}</h6>
+                                <h6 class="card-subtitle mb-2 text-muted">{{ item.owner_name }}</h6>
                                 <p class="card-text">{{ item.body }}</p>
-                                <p>Colaboradores: {{ item.collaborators }} </p><p class="text-muted">Fecha: {{ item.creation_date}}</p>
+                                <p class="card-text text-muted">Creado: {{ item.creation_date}}</p>
+                            </div>
+                            <div class="card-body text-center mt-0">
+                                {{item.id}}
+                                <a class="btn btn-sm btn-secondary" href={% url 'read-item' item.id %}>Ver mas</a>
                             </div>
                         </div>
                     </div>
