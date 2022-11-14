@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
 
@@ -9,7 +8,7 @@ class New(models.Model):
     body = RichTextField(blank=True, null=True)
     creation_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     owner_name = models.ForeignKey(User, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='images/',null=True, blank=True)
+    image = models.ImageField(upload_to='images/', blank=True, null=True)
     
     def __str__(self):
         return self.tittle

@@ -46,7 +46,7 @@
                         <div class="row">
                            <div class="col-lg-12">
                                 <div class="p-5">
-                                    <form action={% url 'create-items' %} method="POST" enctype="multipart/form-data" class="user mb-3 row">
+                                    <form action={% url 'edit-item' item.pk %} method="POST" enctype="multipart/form-data" class="user mb-3 row">
                                         {% csrf_token %}
                                             {{ form.media }}
                                             <div class="form-group">
@@ -76,7 +76,7 @@
                                                 </div>
                                                 <p></p>
                                             </div>
-                                            <button class="btn btn-primary btn-user btn-block" type="submit">Crear</button>
+                                            <button class="btn btn-primary btn-user btn-block" type="submit">Editar</button>
                                     </form>
         
                                 </div>

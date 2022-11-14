@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, render
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
 
 from items.forms import Contacts, SearchNewsForms
@@ -30,27 +30,48 @@ class CreateItem(LoginRequiredMixin, CreateView):
     model = New
     success_url = '/items'
     template_name = 'items/create-item.html'
-    fields = '__all__'
-    def form_valid(self, form):
-        self.object = form.save()
-        return redirect(self.get_success_url())
+    fields = ['tittle', 'body', 'owner_name', 'image']
     
-class ReadItem(ListView):
+
+class ReadItem(DetailView):
     model = New
     template_name = 'items/read-item.html'
-    fields = '__all__'
-    def get_queryset(self):
-        queryset = New.objects.filter(owner_name= self.request.user.id)
-        return queryset
+    def get_context_data(self, *args, **kwargs):
+         pk = self.kwargs.get('pk')
+         context = super(DetailView, self).get_context_data(**kwargs)
+         context['item'] = New.objects.get(pk=pk)
+         return context
+     
+     
+class EditItem(LoginRequiredMixin, UpdateView):
+    model = New
+    success_url = '/items'
+    template_name = 'items/edit-item.html'
+    fields = ['tittle', 'body', 'owner_name', 'image']
+    def get_context_data(self, *args, **kwargs):
+         pk = self.kwargs.get('pk')
+         context = super(UpdateView, self).get_context_data(**kwargs)
+         context['item'] = New.objects.get(pk=pk)
+         return context
 
+
+class DeleteItem(LoginRequiredMixin, DeleteView):
+    model = New
+    success_url = '/items'
+    template_name = 'items/delete-item.html'
+    def get_context_data(self, *args, **kwargs):
+         pk = self.kwargs.get('pk')
+         context = super(DeleteView, self).get_context_data(**kwargs)
+         context['item'] = New.objects.get(pk=pk)
+         return context
+    
 
 def contact(request):
     if request.method == 'POST':
-        form_create = Contacts(request.POST)
+        form = Contacts(request.POST)
         
-        if form_create.is_valid():
-            data = form_create.cleaned_data
-            
+        if form.is_valid():
+            data = form.cleaned_data
             name=data['name']
             mail=data['mail']
             message=data['message']
@@ -58,5 +79,5 @@ def contact(request):
             contact.save()
             return redirect('index')
     
-    form_create = Contacts()
-    return render(request, 'items/contact.html', {'form_create': form_create})
+    form = Contacts()
+    return render(request, 'items/contact.html', {'form': form})
