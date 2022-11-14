@@ -1,0 +1,51 @@
+{% extends 'bases/base.html' %}
+
+
+{% block title %}
+    <title>Entrega 1 || Crear Items</title>
+{% endblock title %}
+
+{% block active-page %}
+<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+    <li class="nav-item"><a class="nav-link" href={% url 'index' %}>Home</a></li>
+    <li class="nav-item"><a class="nav-link" href={% url 'items' %}>Articulos</a></li>
+    {% if request.user.is_authenticated %}
+    <li class="nav-item"><a class="nav-link active" aria-current="page" href={% url 'create-items' %}>Crear Articulo</a></li>
+    {% endif %}
+    <li class="nav-item"><a class="nav-link" href={% url 'about' %}>Nosotros</a></li>
+    <li class="nav-item"><a class="nav-link" href={% url 'contact' %}>Contacto</a></li>
+    {% if request.user.is_authenticated %}
+        <li class="nav-item"><a class="nav-link active text-decoration-underline" href={% url 'profile' %}>Hola {{request.user.username}}!</a></li>
+        <li class="nav-item"><a class="nav-link" href={% url 'logout' %}>Cerrar Sesion</a></li>
+    {% else %}
+        <li class="nav-item"><a class="nav-link active" href={% url 'login' %}>Ingresar</a></li>
+        <li class="nav-item"><a class="nav-link" href={% url 'register' %}>Registrarse</a></li> 
+    {% endif %}
+</ul>
+{% endblock active-page %}
+
+{% block content-block %}
+<!-- Header-->
+<header class="bg-dark py-3">
+    <div class="container px-4 px-lg-5 my-2">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">Articulos</h1>
+            <p class="lead fw-normal text-white-50 mb-0">Crear articulos en la BD</p>
+        </div>
+    </div>
+</header>
+<!-- Section-->
+<section class="bg-light py-6">
+    
+                                    <p>
+                                        <li>Modelo: {{ item.tittle }}</li>
+                                        <li>Marca: {{ item.owner_name }}</li>
+                                        <li>Cant. Puertas: {{ item.cant_puertas }}</li>
+                                        <li>Color: {{ item.image }}</li>
+                                        <li>Chasis: {{ item.creation_date }}</li>
+                                        <li>Descripcion: {{ item.body | safe }}</li>
+                                    </p>
+                                
+</section>
+{% endblock content-block %}
+

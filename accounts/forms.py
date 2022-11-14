@@ -18,7 +18,7 @@ class CreationForm(UserCreationForm):
         
         
 class EditProfileForm(forms.Form):
-    avatar = forms.ImageField(required=True)
+    avatar = forms.ImageField(required=True, widget=forms.FileInput(attrs={'class': 'form-control form-control-user'}))
     first_name = forms.CharField(label='Nombre', required=True)
     last_name = forms.CharField(label='Apellido', required=True)
     email = forms.CharField(required=True)

@@ -1,18 +1,18 @@
-import mailbox
-from unicodedata import name
 from django.db import models
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 class New(models.Model):
-    tittle = models.CharField(max_length=20)
-    body = models.CharField(max_length=120)
-    creation_date = models.DateField()
-    owner_first_name = models.CharField(max_length=16)
-    owner_last_name = models.CharField(max_length=16)
-    collaborators = models.IntegerField()
+    tittle = models.CharField(max_length=25)
+    body = RichTextField(blank=True, null=True)
+    creation_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    owner_name = models.ForeignKey(User, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='images/',null=True, blank=True)
     
     def __str__(self):
-        return f'Name: {self.owner_first_name} {self.owner_last_name}'
+        return self.tittle
 
 
 class Contact(models.Model):
