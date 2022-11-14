@@ -24,23 +24,38 @@
 {% endblock active-page %}
 
 {% block content-block %}
-<section class="bg-light py-5">
-    <div class="container px-5 my-5 px-5">
+<section class="bg-light py-6">
+    <div class="container px-5 my-3 px-3">
         <div class="text-center mb-5">
             <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-envelope"></i></div>
             <h2 class="fw-bolder">Contacta al Equipo</h2>
             <p class="lead mb-0">Este Form solo se ve en la base de datos</p>
         </div>
-        <div class="row gx-5 justify-content-center">
-            <div class="col-lg-6">
-                <form action={% url 'contact' %} method="POST" class='mb-3 row'>
-                    {% csrf_token %}
-                    {{ form_create }}
-                    <p></p>
-                    <button class="btn btn-secondary" type="submit">Enviar</button>
-                </form>
+    </div>
+        <div class="container">
+            <div class="row gx-3 justify-content-center">
+                <div class="col-lg-9">
+                    <div class="card o-hidden border-0 shadow-lg my-3">
+                        <div class="card-body p-0">
+                            <!-- Nested Row within Card Body -->
+                            <div class="row">
+                               <div class="col-lg-12">
+                                    <div class="p-5">
+                                        <form action={% url 'contact' %} method="POST" class='user mb-3 row'>
+                                            {% csrf_token %}
+                                            {{form.media}}
+                                            {{ form }}
+                                            <p></p>
+                                            <button class="btn btn-secondary" type="submit">Enviar</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+
 </section>
 {% endblock content-block %}

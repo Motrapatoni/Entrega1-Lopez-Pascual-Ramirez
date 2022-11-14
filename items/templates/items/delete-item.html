@@ -46,33 +46,17 @@
                         <div class="row">
                            <div class="col-lg-12">
                             <div class="p-5">
-                                <div class="user mb-3 row"></div>
+                                <form action={% url 'delete-item' item.pk %} method="POST" enctype="multipart/form-data" class="user mb-3 row">
+                                    {% csrf_token %}
+                                        {{ form.media }}
                                         <div class="form-group">
-                                            
-                                            <div class="mb-1 ">
-                                                <label for="tittle" class="form-control form-control-user border-0">Titulo:</label>
-                                                <h4 class="form-control-user border-0 m-2">{{item.tittle}}</h4>
-                                            </div>
-                                            <div class="mb-1">                        
-                                                <label for="content" class="form-control form-control-user border-0">Cuerpo noticia:</label>
-                                                <div class="flex justify-between form-control-user border-0">
-                                                    <p cla>{{ item.body|safe }}</p>
-                                                </div>
-                                            </div>
                                             <div class="mb-1">
-                                                <label for="user" class="form-control form-control-user border-0">Creador:</label>
-                                                <h4 class="form-control-user border-0 m-2">{{item.owner_name}}</h4>
-                                            </div>
-                                            <div class="mb-1">
-                                                <label for="imagen" class="form-control form-control-user border-0">Imagen:</label>
-                                                <img src={{ item.image.url }} class="rounded-circle img-fluid my-3" alt="imagenAlt" name="image" style="width: 120px;">
+                                                <label for="tittle" class="form-control form-control-user border-0 mb-1">Confirma que desea borrar la noticia: <strong>{{item.tittle}}</strong></label>
                                             </div>
                                             <p></p>
                                         </div>
-                                        
+                                        <button class="btn btn-primary btn-user btn-block">Confirmar</button> <p></p><a class="btn btn-primary btn-user btn-block" href={% url 'items' %}>Atras</a>
                                 </form>
-    
-                            </div>
                             </div>
                         </div>
                     </div>
