@@ -53,5 +53,18 @@ pip install -r requirements.txt
 ## Luego para poder correr el proyecto en el LocalHost debes de ejecutar en la terminal:
 ```
 python manage.py runserver
+```  
 
-```
+
+____
+# /admin 
+User:  
+_Admin_  
+Pass:  
+_adminadmin_  
+___
+
+# Uso de la Pag  
+**Video:**  
+https://drive.google.com/file/d/1Yd9Sp9WJnJIvKjY3Wwxmqqb7Y0cg7q_P/view?usp=share_link
+=======
