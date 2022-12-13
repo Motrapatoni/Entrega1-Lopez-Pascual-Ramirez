@@ -33,11 +33,12 @@ def register(request):
     
     return render(request, 'accounts/register.html', {'form': form})
 
-@login_required
+@login_required(login_url='/login')
 def profile(request):
+    extend_user, is_new = ExtendUser.objects.get_or_create(user=request.user)
     return render(request, 'accounts/profile.html', {})
 
-@login_required
+@login_required(login_url='/login')
 def edit_profile(request):
     user = request.user
     
@@ -48,7 +49,10 @@ def edit_profile(request):
             user.first_name = new_data['first_name']
             user.last_name = new_data['last_name']
             user.email = new_data['email']
-            user.extenduser.avatar = new_data['avatar']
+            if new_data['birthday'] != None:
+                user.extenduser.birthday = new_data['birthday']
+            if new_data['avatar'] != None:
+                user.extenduser.avatar = new_data['avatar']
             user.extenduser.save()
             user.save()
             return redirect('profile')
@@ -59,6 +63,7 @@ def edit_profile(request):
                 'last_name': user.last_name,
                 'email': user.email,
                 'avatar': user.extenduser.avatar,
+                'birthday': user.extenduser.birthday,
             }
         )
     return render(request, 'accounts/edit-profile.html', {'form': form})

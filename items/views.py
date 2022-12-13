@@ -37,10 +37,10 @@ class ReadItem(DetailView):
     model = New
     template_name = 'items/read-item.html'
     def get_context_data(self, *args, **kwargs):
-         pk = self.kwargs.get('pk')
-         context = super(DetailView, self).get_context_data(**kwargs)
-         context['item'] = New.objects.get(pk=pk)
-         return context
+        pk = self.kwargs.get('pk')
+        context = super(DetailView, self).get_context_data(**kwargs)
+        context['item'] = New.objects.get(pk=pk)
+        return context
      
      
 class EditItem(LoginRequiredMixin, UpdateView):
@@ -49,10 +49,10 @@ class EditItem(LoginRequiredMixin, UpdateView):
     template_name = 'items/edit-item.html'
     fields = ['tittle', 'body', 'owner_name', 'image']
     def get_context_data(self, *args, **kwargs):
-         pk = self.kwargs.get('pk')
-         context = super(UpdateView, self).get_context_data(**kwargs)
-         context['item'] = New.objects.get(pk=pk)
-         return context
+        pk = self.kwargs.get('pk')
+        context = super(UpdateView, self).get_context_data(**kwargs)
+        context['item'] = New.objects.get(pk=pk)
+        return context
 
 
 class DeleteItem(LoginRequiredMixin, DeleteView):
@@ -60,10 +60,10 @@ class DeleteItem(LoginRequiredMixin, DeleteView):
     success_url = '/items'
     template_name = 'items/delete-item.html'
     def get_context_data(self, *args, **kwargs):
-         pk = self.kwargs.get('pk')
-         context = super(DeleteView, self).get_context_data(**kwargs)
-         context['item'] = New.objects.get(pk=pk)
-         return context
+        pk = self.kwargs.get('pk')
+        context = super(DeleteView, self).get_context_data(**kwargs)
+        context['item'] = New.objects.get(pk=pk)
+        return context
     
 
 def contact(request):
