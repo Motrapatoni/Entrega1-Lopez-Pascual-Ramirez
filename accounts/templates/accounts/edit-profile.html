@@ -41,16 +41,17 @@
                     <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"
                       alt="Avatar" class="img-fluid my-5" style="width: 80px; border-radius: .5rem;" />
                 {% endif %}
-                <input type="file" class="btn col-8" accept="image/png, .jpeg, .jpg" name="avatar" required>
+                <input type="file" class="btn col-8" accept="image/png, .jpeg, .jpg" name="avatar" value={{request.user.extenduser.avatar.value}}>
                 <h5>
-                  <input type="text" class="form-control form-control-user col-12 mt-3" placeholder="Nombre Usuario" name={{ form.username.name }} required>
+                  <label class="form-control-user col-12 mt-3" alt="No editable.">{{ request.user.username }}</label>
                 </h5>
                 <p></p>
                 <div class="align-content-center mb-5 mt-5">
-                  <button class="btn btn-link" label="Guardar" title="Click para guardar los cambios">
+                  <button class="btn " label="Guardar" title="Click para guardar los cambios">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="30" height="30">
                       <path d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V173.3c0-17-6.7-33.3-18.7-45.3L352 50.7C340 38.7 323.7 32 306.7 32H64zm0 96c0-17.7 14.3-32 32-32H288c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V128zM224 416c-35.3 0-64-28.7-64-64s28.7-64 64-64s64 28.7 64 64s-28.7 64-64 64z"/>
-                    </svg>
+                    </svg><br>
+                    Guardar
                   </button>
                 </div> 
               </div>
@@ -62,15 +63,20 @@
                       <div class="col-10 mb-2">
                         <h6>Nombre y apellido:</h6>
                         <input type="text" class="form-control form-control-user mb-2"
-                          placeholder="Nombre" name={{ form.first_name.name }} required>
+                           name={{ form.first_name.name }} value={{ form.first_name.value }}>
                         <input type="text" class="form-control form-control-user"
-                          placeholder="Apellido" name={{ form.last_name.name }} required>
+                           name={{ form.last_name.name }} value={{ form.last_name.value }}>
                         </div>
                       <div class="col-10 mb-2">
                         <h6>Email</h6>
                         <input type="text" class="form-control form-control-user"
-                          placeholder="Emal" name={{ form.email.name }}>
+                          name={{ form.email.name }} value={{ form.email.value }} >
                       </div>
+                      <div class="col-10 mb-2">
+                        <h6>Edad:</h6>
+                        <input type="date" class="form-control form-control-user" 
+                        name={{ form.birthday.name }} value={{ request.user.extenduser.birthday.value }}, min="1920-01-01" max="2020-12-31">
+                    </div>
                       <div class="col-7 mb-2">
                         <h6>Registro:</h6>
                         <p class="text-muted">{{ request.user.date_joined }}</p>

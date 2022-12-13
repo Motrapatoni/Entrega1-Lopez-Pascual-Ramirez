@@ -1,7 +1,11 @@
+from django.conf import settings
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
 from django.contrib.auth.forms import PasswordChangeForm
+from django.forms import Widget
+from django.contrib.admin.widgets import AdminDateWidget
+
 
 class CreationForm(UserCreationForm):
     first_name = forms.CharField(label='Nombre', widget=forms.TextInput(attrs={'class': 'form-control form-control-user'}), required=True)
@@ -18,15 +22,11 @@ class CreationForm(UserCreationForm):
         
         
 class EditProfileForm(forms.Form):
-    avatar = forms.ImageField(required=True, widget=forms.FileInput(attrs={'class': 'form-control form-control-user'}))
-    first_name = forms.CharField(label='Nombre', required=True)
-    last_name = forms.CharField(label='Apellido', required=True)
-    email = forms.CharField(required=True)
-    
-    class Meta:
-        model = User
-        fields = ['first_name', 'last_name', 'username', 'email', 'avatar']
-        help_texts = {key: '' for key in fields}
+    avatar = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}), required=False)
+    first_name = forms.CharField(required=False)
+    last_name = forms.CharField(required=False)
+    email = forms.CharField(required=False)
+    birthday = forms.DateField(required=False)
     
 
 class ChangePasswordForm(PasswordChangeForm):
