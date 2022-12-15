@@ -43,8 +43,8 @@ INSTALLED_APPS = [
     'home',
     'items',
     'accounts',
-    '',
-    'ckeditor'
+    'ckeditor',
+    'msgs',
 ]
 
 MIDDLEWARE = [
