@@ -1,0 +1,97 @@
+{% extends 'bases/base.html' %}
+
+{% block block-tittle %}
+<title>Entrega Final || Chat</title>
+{% endblock block-tittle %}
+
+{% block active-page %}
+<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+    <li class="nav-item"><a class="nav-link" href={% url 'index' %}>Home</a></li>
+    <li class="nav-item"><a class="nav-link" href={% url 'about' %}>Nosotros</a></li>
+    <li class="nav-item"><a class="nav-link" href={% url 'items' %}>Articulos</a></li>
+    {% if request.user.is_authenticated %}
+    <li class="nav-item"><a class="nav-link" href={% url 'create-items' %}>Crear Articulo</a></li>
+    {% endif %}
+    <li class="nav-item"><a class="nav-link" href={% url 'about' %}>Nosotros</a></li>
+    <li class="nav-item"><a class="nav-link" href={% url 'contact' %}>Contacto</a></li>
+    {% if request.user.is_authenticated %}
+        <li class="nav-item"><a class="nav-link active text-decoration-underline" href={% url 'profile' %}>Hola {{request.user.username}}!</a></li>
+        <li class="nav-item"><a class="nav-link" href={% url 'logout' %}>Cerrar Sesion</a></li>
+    {% else %}
+        <li class="nav-item"><a class="nav-link active" href={% url 'login' %}>Ingresar</a></li>
+        <li class="nav-item"><a class="nav-link" href={% url 'register' %}>Registrarse</a></li> 
+    {% endif %}
+</ul>
+{% endblock active-page %}
+
+
+{% block content-block  %}
+<section class="bg-light py-6">
+    <div class="container px-5 my-3 px-3">
+        <div class="text-center mb-5">
+            <h2> Comparte con otros usurios!</h2>
+        </div>
+        <div class="container-flex">
+            {% comment %} Info de quien escribe {% endcomment %}
+            <div class="container border border-dark">
+                <div class="row">
+                    <div class="col-md-10">
+                        <h2>usuario conectado: <strong>{{ request.user.get_full_name }}</strong></h2>
+                        <hr>
+                        <p><strong>Hora actual: {{ hour }}</strong></p>
+                    </div>
+                
+                    <div class="col-md-2 text-center" style="border-top-left-radius: .2rem; border-bottom-left-radius: .2rem;">
+                        {% if request.user.extenduser.avatar %}
+                            <img src={{request.user.extenduser.avatar.url}}
+                                class="rounded-circle img-fluid my-2" alt="avatar" style="width: 120px;">
+                        {% else %}
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"
+                                alt="Avatar" class="img-fluid my-2" style="width: 80px;" />
+                        {% endif %}
+                    </div>
+                </div>
+             </div>
+            {% comment %} Tabla de mensajes {% endcomment %}
+            <div class="container-md border border-dark">
+                <div class="row" style="width: auto; height:40rem; overflow: scroll;">
+                    {% if msg %}
+                        {% for msgs in msg %}
+                            <div class="col-md-12 border-bottom">
+                                <p>{{ msgs.msg_send}}</p>
+                                <p class="text-muted mt-0">&nbsp;Enviado por: {{ msgs.sender}} &nbsp;&nbsp; | &nbsp;&nbsp; Hora: {{ msgs.create_date }}</p>
+                            </div>
+                        {% endfor %}
+                    {%else%} 
+                        <div class="row">
+                            <div class="row">
+                                <div class="col-md-12 border-bottom">
+                                    <p>Aun no hay mensajes en el Chat, se el priemro en interactuar.</p>
+                                </div>
+                            </div>  
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% comment %} formulario para vrear el mensaje {% endcomment %}
+            <div class="container border border-dark mt-2">
+                <form action={% url 'msgs' %} method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="mb-1 d-block col-md-10">
+                            <label for="tittle" class="border-0 mb-1">Mensaje:</label>
+                            <input id="tittle" type="text" class="col-md-11  mx-auto" label="Titulo" name={{ form.msg_send.name }}>
+                        </div>
+                        <div class="mb-1" style="display:none">
+                            <label for="user" class=" border-0 mb-1 col-sm-0">Creador</label>
+                            <select name={{ form.sender.name }} id="user" class="col-sm-8  mx-auto">
+                            <option value="{{ request.user.id }}">{{ request.user.username }}</option> </select>
+                        </div>
+                        <button class="btn btn-secondary btn-sm col-md-2 mb-1 d-block" type="submit">Enviar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content-block  %}

@@ -3,9 +3,6 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
 from django.contrib.auth.forms import PasswordChangeForm
-from django.forms import Widget
-from django.contrib.admin.widgets import AdminDateWidget
-
 
 class CreationForm(UserCreationForm):
     first_name = forms.CharField(label='Nombre', widget=forms.TextInput(attrs={'class': 'form-control form-control-user'}), required=True)
