@@ -54,7 +54,8 @@
              </div>
             {% comment %} Tabla de mensajes {% endcomment %}
             <div class="container-md border border-dark">
-                <div class="row" style="width: auto; height:40rem; overflow: scroll;">
+                <script>autorefresh()</script>
+                <div class="row" style="width: auto; height:40rem; overflow: scroll;" id="chat">
                     {% if msg %}
                         {% for msgs in msg %}
                             <div class="col-md-12 border-bottom">
@@ -94,4 +95,11 @@
         </div>
     </div>
 </section>
+<script>
+    $(document).ready(function() {
+        var refreshId = setInterval( function(){
+            $('#chat').load('div');//actualizas el div automaticamente
+        }, 2000 );
+    });
+</script>
 {% endblock content-block  %}
