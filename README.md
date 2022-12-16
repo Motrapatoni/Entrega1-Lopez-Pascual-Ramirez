@@ -55,6 +55,9 @@ pip install -r requirements.txt
 python manage.py runserver
 ```  
 
+## Para acceder al CHAT lo puedes hacer dentro de tu perfil  
+Ruta: http://127.0.0.1:8000/accounts/profile/ 
+Y alli acceder al chat
 
 ____
 # /admin 
