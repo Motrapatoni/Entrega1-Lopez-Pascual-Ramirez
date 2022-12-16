@@ -20,18 +20,20 @@ def show_msgs(request):
             return redirect('msgs')
     
     form = MsgsForms()
-        
-    msg = Msg.objects.order_by('-create_date')
     
     h = datetime.now()
     hour = h - timedelta(hours=3)
     hour = hour.strftime('%H:%M')
     
     context = {
-        'msg': msg,
         'hour':hour,
         'form':form
     }
     
     return render(request, 'msgs/msgs.html', context)
 
+@login_required(login_url='/login')
+def show_div(request):     
+    msg = Msg.objects.order_by('-create_date')
+
+    return render(request, 'msgs/div.html', {'msg': msg})
